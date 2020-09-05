@@ -98,6 +98,9 @@ class Game:
     def maxmin_value(self,player):
         return max( min(  self.u(player, p_strat, opp_strat) for opp_strat in self.strategies )  for p_strat in self.strategies )
 
+    def maxmin_strategies(self, player):
+        v = self.maxmin_value(player)
+        return [p_strat for p_strat in self.strategies if min(  self.u(player, p_strat, opp_strat) for opp_strat in self.strategies ) == v]
 
 def tests():
     g = Game()
@@ -140,6 +143,11 @@ def tests():
     g.set_utility([[4,1],[0,4],[1,5],[1,2]])
     assert g.maxmin_value(0) == 1
     assert g.maxmin_value(1) == 2
+
+    g.set_utility([[4,1],[0,4],[1,5],[1,1]])
+    assert g.maxmin_strategies(0) == ['B']
+    assert g.maxmin_value(1) == ['A']
+    
 
 def exercise_6_9():
     #exercise 6.9.a)
