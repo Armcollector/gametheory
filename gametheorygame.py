@@ -95,6 +95,10 @@ class Game:
                 very_weakly_eq.append((a,b))
         return very_weakly_eq
 
+    def maxmin_value(self,player):
+        return max( min(  self.u(player, p_strat, opp_strat) for opp_strat in self.strategies )  for p_strat in self.strategies )
+
+
 def tests():
     g = Game()
    
@@ -132,6 +136,10 @@ def tests():
     g.set_utility([[6,6],[0,8],[8,0],[3,3]])
     assert g.pure_nash() == [('B','B')]
 
+    #maxmin
+    g.set_utility([[4,1],[0,4],[1,5],[1,2]])
+    assert g.maxmin_value(0) == 1
+    assert g.maxmin_value(1) == 2
 
 def exercise_6_9():
     #exercise 6.9.a)
@@ -169,10 +177,18 @@ def exercise_6_9():
     else:
         print("could not find solution.")
 
+def exercise_6_3():
+    g = Game()
+
+    g.set_utility([[0,1],[1,1],[1,1],[1,0]])
+
+    print(g.pure_nash())
+
+
 
 if __name__ == '__main__':        
     
     tests()    
 
-    
-    exercise_6_9()
+    exercise_6_3()
+    #exercise_6_9()
