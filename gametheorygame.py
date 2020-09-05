@@ -146,7 +146,7 @@ def tests():
 
     g.set_utility([[4,1],[0,4],[1,5],[1,1]])
     assert g.maxmin_strategies(0) == ['B']
-    assert g.maxmin_value(1) == ['A']
+    assert g.maxmin_strategies(1) == ['A','B']
     
 
 def exercise_6_9():
