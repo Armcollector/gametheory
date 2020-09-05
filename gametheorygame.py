@@ -133,13 +133,9 @@ def tests():
     assert g.pure_nash() == [('B','B')]
 
 
-if __name__ == '__main__':        
-    
-    tests()    
-
-    g = Game()
-   
+def exercise_6_9():
     #exercise 6.9.a)
+    g = Game()
     for comb in combinations_with_replacement(range(1,8),8):
         g.set_utility([comb[i: i+2] for i in range(0, len(comb), 2)])
 
@@ -172,3 +168,11 @@ if __name__ == '__main__':
                 break
     else:
         print("could not find solution.")
+
+
+if __name__ == '__main__':        
+    
+    tests()    
+
+    
+    exercise_6_9()
