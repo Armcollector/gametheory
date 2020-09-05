@@ -190,7 +190,13 @@ def exercise_6_3():
 
     g.set_utility([[0,1],[1,1],[1,1],[1,0]])
 
-    print(g.pure_nash())
+    print(f"pure nash in : {g.pure_nash()}")
+    for p in [0,1]:
+        print(f'minmax_value for player {p} is {g.maxmin_value(p)}')
+
+    for p in [0,1]:
+        print(f'minmax_strategy for player {p} is {g.maxmin_strategies(p)}')
+
 
 
 
