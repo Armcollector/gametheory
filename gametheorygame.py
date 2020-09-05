@@ -102,6 +102,15 @@ class Game:
         v = self.maxmin_value(player)
         return [p_strat for p_strat in self.strategies if min(  self.u(player, p_strat, opp_strat) for opp_strat in self.strategies ) == v]
 
+    def minmax_value(self,player):
+        return min( max( self.u(player,p_strat,opp_strat) for p_strat in self.strategies) for opp_strat in self.strategies  )
+
+    def minmax_strategies(self, player):
+        """minmax strategies against player 
+        """
+        v = self.minmax_value(player)
+        return [opp_strat for opp_strat in self.strategies if max(self.u(player, p_strat, opp_strat) for p_strat in self.strategies) == v ]
+
 def tests():
     g = Game()
    
@@ -197,7 +206,11 @@ def exercise_6_3():
     for p in [0,1]:
         print(f'minmax_strategy for player {p} is {g.maxmin_strategies(p)}')
 
+    for p in [0,1]:
+        print(f'maxmin_value for player {p} is {g.minmax_value(p)}')
 
+    for p in [0,1]:
+        print(f'maxmin_strategy for player {p} is {g.minmax_strategies(p)}')
 
 
 if __name__ == '__main__':        
