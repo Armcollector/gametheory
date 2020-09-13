@@ -1,6 +1,5 @@
 % Notes and solutions
 
-
 % -------------------------------------------------
 % Package imports
 % -------------------------------------------------
@@ -26,13 +25,11 @@
 \usepackage{fancyvrb} % fancy verbatim
 \usepackage{centernot} % For the NOT conditionally independent sign
 
-
 % -------------------------------------------------
 % Package setup
 % -------------------------------------------------
 
 \newcommand{\Title}{\vspace*{-4em}Game theory and mechanism design}
-%\newcommand{\Subtitle}{A summary of main ideas and concepts}
 \newcommand{\Author}{Christian \and Helge \and Jonas \and Tommy}
 \newcommand{\listSpace}{-0.5em}% Global list space
 
@@ -55,26 +52,10 @@
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
 
-% Conditional independence
-\newcommand{\bigCI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
-\newcommand{\nbigCI}{\centernot{\bigCI}}
-
-% Shortcuts for probability distributions
-\DeclareMathOperator{\N}{\mathcal{N}}
-\DeclareMathOperator{\Bern}{\operatorname{Bern}}
-\DeclareMathOperator{\Gam}{\operatorname{Gam}}
-\DeclareMathOperator{\Beta}{\operatorname{Beta}}
-\DeclareMathOperator{\Bin}{\operatorname{Bin}}
-\DeclareMathOperator{\St}{\operatorname{St}}
-\DeclareMathOperator{\U}{\operatorname{U}}
-\DeclareMathOperator{\KL}{\operatorname{KL}}
-
-% Shortcuts for statistical operators
-\DeclareMathOperator{\E}{\mathbb{E}}
-\DeclareMathOperator{\var}{\operatorname{var}}
-\DeclareMathOperator{\cov}{\operatorname{cov}}
-\DeclareMathOperator{\SD}{\operatorname{SD}}
-\renewcommand{\H}{\operatorname{H}}
+% \usepackage[]{natbib} 
+% \citet{jon90} -> Jones et al.  (1990)
+% \citep{jon90} -> (Jones et al., 1990)
+% \citep[see][]{jon90} -> (see Jones et al., 1990)
 
 
 % -------------------------------------------------
@@ -85,6 +66,18 @@
 	\begin{abstract}
 		\noindent 
 		This document contains notes on game theory and mechanism design.
+		
+%		\citet{dixit_games_nodate}
+%		
+%				\citet{maschler_game_nodate}
+%		
+%		\citet{narahari_game_nodate}
+%		
+%		\citet{nisan_algorithmic_nodate}
+%		
+%		\citet{shoham_multiagent_nodate}
+		
+
 	\end{abstract}
 	
 	{\small \tableofcontents}
@@ -93,7 +86,6 @@
 	\clearpage
 	
 	\section{Notes}
-	
 	
 	% ----------------------------------------------------------------------------
 	\subsection{Introduction and key notions}
@@ -246,6 +238,4 @@
 	
 	\bibliographystyle{apalike}%alpha, apalike is also good
 	\bibliography{bibliography}
-	
-	
 \end{document}
