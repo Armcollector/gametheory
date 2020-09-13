@@ -1,0 +1,251 @@
+% Notes and solutions
+
+
+% -------------------------------------------------
+% Package imports
+% -------------------------------------------------
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}% Input encoding
+\usepackage[english]{babel}% Set language to english
+\usepackage{graphicx}% For importing graphics
+\usepackage{amsthm, amsfonts, amssymb, bm}% All the AMS packages
+\usepackage{mathtools}% Fixes a few AMS bugs
+\usepackage[expansion=false]{microtype}% Fixes to make typography better
+\usepackage{hyperref}% For \href{URL}{text}
+\usepackage{fancyhdr}% For fancy headers
+\usepackage[sharp]{easylist}% Easy nested lists
+\usepackage{parskip}% Web-like paragraphs
+\usepackage{multicol}% For multiple columns
+\usepackage{tikz-cd}% For diagrams
+\usepackage{microtype}
+\usepackage{listings}% To include source-code
+\usepackage[margin = 2.5cm, includehead]{geometry}% May be used to set margins
+\usepackage{nicefrac}% Enables \nicefrac{nom}{denom}
+%\usepackage[sc]{mathpazo}% A nice font, alternative to CM
+\usepackage{booktabs}
+\usepackage{fancyvrb} % fancy verbatim
+\usepackage{centernot} % For the NOT conditionally independent sign
+
+
+% -------------------------------------------------
+% Package setup
+% -------------------------------------------------
+
+\newcommand{\Title}{\vspace*{-4em}Game theory and mechanism design}
+%\newcommand{\Subtitle}{A summary of main ideas and concepts}
+\newcommand{\Author}{Christian \and Helge \and Jonas \and Tommy}
+\newcommand{\listSpace}{-0.5em}% Global list space
+
+\title{\Title}
+\author{\Author}
+\date{Last updated \today.}
+
+% Shortcuts for sets and other stuff in mathematics
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Y}{\mathcal{Y}}
+\newcommand{\Reg}{\mathcal{R}}
+\newcommand{\Class}{\mathcal{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\sf}[1]{\mathsf{#1}}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+% Conditional independence
+\newcommand{\bigCI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\nbigCI}{\centernot{\bigCI}}
+
+% Shortcuts for probability distributions
+\DeclareMathOperator{\N}{\mathcal{N}}
+\DeclareMathOperator{\Bern}{\operatorname{Bern}}
+\DeclareMathOperator{\Gam}{\operatorname{Gam}}
+\DeclareMathOperator{\Beta}{\operatorname{Beta}}
+\DeclareMathOperator{\Bin}{\operatorname{Bin}}
+\DeclareMathOperator{\St}{\operatorname{St}}
+\DeclareMathOperator{\U}{\operatorname{U}}
+\DeclareMathOperator{\KL}{\operatorname{KL}}
+
+% Shortcuts for statistical operators
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\var}{\operatorname{var}}
+\DeclareMathOperator{\cov}{\operatorname{cov}}
+\DeclareMathOperator{\SD}{\operatorname{SD}}
+\renewcommand{\H}{\operatorname{H}}
+
+
+% -------------------------------------------------
+% Document start
+% -------------------------------------------------
+\begin{document}
+	\maketitle
+	\begin{abstract}
+		\noindent 
+		This document contains notes on game theory and mechanism design.
+	\end{abstract}
+	
+	{\small \tableofcontents}
+	
+	
+	\clearpage
+	
+	\section{Notes}
+	
+	
+	% ----------------------------------------------------------------------------
+	\subsection{Introduction and key notions}
+	
+	Game theory is the study of how agents act under games.
+	Mechanism design the concerned with the design of the games themselves.
+	A rational agent chooses a strategy to maximize its utility.
+	An intelligent agent is able to compute its best strategy.
+	
+	Some famous problems are
+	\begin{easylist}[itemize]
+		\ListProperties(Space=\listSpace, Space*=\listSpace)
+		# Student coordination
+		# Baess paradox
+		# Prisoners dilemma
+		# Vickrey auction (sealed bid second-price)
+		# Divide the dollar
+		# Chicken
+	\end{easylist}
+	
+	
+	\clearpage
+	\section{Exercises}
+	
+	% ----------------------------------------------------------------------------
+	\subsubsection*{Exercise 6.1}
+	\textbf{Show in a strategic form game that any strongly (weakly) (very weakly) dominant strategy equilibrium is also a pure strategy Nash equilibrium.}
+	
+	Let $s^* = (s_1^*, ..., s_n^*)$ be a dominant strategy equilibrium and $i\in [1,...,n]$ be an arbitrary player. $s_i^*$ is a dominant strategy for $i$, such that
+	\[ u_i(s_i^*, s_{-i}) \geq u_i(s_i,s_{-i})\ \forall s_{-i}\in S_{-i} \]
+	
+	Hence
+	\[ u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \]
+	and $s^*$ must also be a Nash equilibrium.
+	
+	% ----------------------------------------------------------------------------
+	\subsubsection*{Exercise 6.3}
+
+	\textbf{Find the pure strategy Nash equilibria, maxmin values, minmax values, maxmin strategies, and minmax strategies of the following game.}
+	
+	\begin{table}[ht!]
+		\centering
+		\begin{tabular}{|c|c|c|} \hline
+			& \multicolumn{2}{|c|}{2} \\ \hline
+			1 & A & B \\ \hline
+			A & 0,1 & 1,1 \\ \hline
+			B & 1,1 & 1,0 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\textit{pure strategy Nash equilibrium} $(A,B)$, $(B,A)$
+	
+	\textit{maxmin values} $\underline{v_1}=1$, $\underline{v_2}=1$
+	
+	\textit{maxmin strategies} $s_1=\{B\}$, $s_2=\{A\}$
+	
+	\textit{minmax values} $\overline{v_1}=1$, $\overline{v_2}=1$
+	
+	\textit{minmax strategies} $s_1=\{A, B\}$, $s_2=\{A,B\}$
+	
+	
+	% ----------------------------------------------------------------------------
+	\subsubsection*{Exercise 6.9}
+	
+	\textbf{Give examples of two player pure strategy games for the following situations}
+	
+	\begin{enumerate}
+		\item[(a)] \textbf{The game has a unique Nash equilibrium which is not a weakly dominant strategy equilibrium}
+		
+		\begin{table}[ht!]
+			\centering
+			\begin{tabular}{|c|c|c|} \hline
+				& \multicolumn{2}{|c|}{2} \\ \hline
+				1 & A & B \\ \hline
+				A & 1,0 & 0,1 \\ \hline
+				B & 0,1 & 0,0 \\ \hline
+			\end{tabular}
+		\end{table}
+		
+		$(A,B)$ is a unique Nash equilibrium.
+		
+		\item[(b)] \textbf{The game has a unique Nash equilibrium which is a weakly dominant strategy equilibrium but not a strongly dominant strategy equilibrium}
+		
+		\begin{table}[ht!]
+			\centering
+			\begin{tabular}{|c|c|c|} \hline
+				& \multicolumn{2}{|c|}{2} \\ \hline
+				1 & A & B \\ \hline
+				A & 1,1 & 0,0 \\ \hline
+				B & 0,1 & 0,0 \\ \hline
+			\end{tabular}
+		\end{table}
+		
+		$(A,A)$ is a unique Nash equilibrium and a weakly dominant strategy equilibrium.
+		
+		\item[(c)] \textbf{The game has one strongly dominant or one weakly dominant strategy equilibrium and a second one which is only a Nash equilibrium}
+		
+		\begin{table}[ht!]
+			\centering
+			\begin{tabular}{|c|c|c|} \hline
+				& \multicolumn{2}{|c|}{2} \\ \hline
+				1 & A & B \\ \hline
+				A & 1,1 & 0,1 \\ \hline
+				B & 0,1 & 0,0 \\ \hline
+			\end{tabular}
+		\end{table}
+		
+		$(A,A)$ is a weakly dominant strategy equilibrium and $(A,B)$ is only a Nash equilibrium.
+		
+	\end{enumerate}
+	
+	% ----------------------------------------------------------------------------
+	\subsubsection*{Exercise 6.10}
+	
+	\textbf{Assume two bidders with valuations $v_1$ and $v_2$ for an object. Their bids are in multiples of some unit (that is, discrete). The bidder with higher bid wins the auction and pays the amount that he has bid. If both bid the same amount, one of them gets the object with equal probability $\frac{1}{2}$. In this game, compute a pure strategy Nash equilibrium of the game.}
+	
+	There are three possible strategies; a bidder $i$ may bid over his own valuation $b_i > v_i$, equal to his valuation $b_i = v_i$ or under his valuation $b_i < v_i$.
+	
+	Depending on the bid of the other bidders $j$, the utility for $i$ is given as follows
+	\[
+	u_i =
+	\begin{cases}
+	v_i - b_i & \text{ if } b_i > b_j \\
+	\frac{1}{2}(v_i - b_i) & \text{ if } b_i = b_j \\
+	0 & \text{ if } b_i < b_j \\
+	\end{cases}
+	\]
+	
+	There are nine possible outcomes for $i$:
+	\begin{table}[ht!]
+		\centering
+		\begin{tabular}{|c|c|c|c|} \hline
+			& $b_i > b_j$ & $b_i = b_j$ & $b_i < b_j$ \\ \hline
+			$b_i > v_i$ & $<0$ & $<0$ & $0$ \\ \hline
+			$b_i = v_i$ & $0$ & $0$ & $0$ \\ \hline
+			$b_i < v_i$ & $>0$ & $>0$ & $0$ \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	Given that $i$ is an arbitrary bidder, the payoff matrix is the same for all bidders, hence $b_i < v_i$ must be a pure strategy Nash equilibrium.
+	
+
+	
+
+	
+	
+
+	
+	
+	
+	\bibliographystyle{apalike}%alpha, apalike is also good
+	\bibliography{bibliography}
+	
+	
+\end{document}
