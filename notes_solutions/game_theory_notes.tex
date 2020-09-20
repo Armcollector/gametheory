@@ -25,6 +25,9 @@
 \usepackage{fancyvrb} % fancy verbatim
 \usepackage{centernot} % For the NOT conditionally independent sign
 
+\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
 % -------------------------------------------------
 % Package setup
 % -------------------------------------------------
@@ -40,7 +43,6 @@
 % Shortcuts for sets and other stuff in mathematics
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\F}{\mathcal{F}}
 \newcommand{\Y}{\mathcal{Y}}
@@ -62,11 +64,11 @@
 % Document start
 % -------------------------------------------------
 \begin{document}
-	\maketitle
-	\begin{abstract}
-		\noindent 
-		This document contains notes on game theory and mechanism design.
-		
+\maketitle
+\begin{abstract}
+	\noindent 
+	This document contains notes on game theory and mechanism design.
+	
 %		\citet{dixit_games_nodate}
 %		
 %				\citet{maschler_game_nodate}
@@ -76,166 +78,337 @@
 %		\citet{nisan_algorithmic_nodate}
 %		
 %		\citet{shoham_multiagent_nodate}
-		
+	
 
-	\end{abstract}
-	
-	{\small \tableofcontents}
-	
-	
-	\clearpage
-	
-	\section{Notes}
-	
-	% ----------------------------------------------------------------------------
-	\subsection{Introduction and key notions}
-	
-	Game theory is the study of how agents act under games.
-	Mechanism design the concerned with the design of the games themselves.
-	A rational agent chooses a strategy to maximize its utility.
-	An intelligent agent is able to compute its best strategy.
-	
-	Some famous problems are
-	\begin{easylist}[itemize]
-		\ListProperties(Space=\listSpace, Space*=\listSpace)
-		# Student coordination
-		# Baess paradox
-		# Prisoners dilemma
-		# Vickrey auction (sealed bid second-price)
-		# Divide the dollar
-		# Chicken
-	\end{easylist}
-	
-	
-	\clearpage
-	\section{Exercises}
-	
-	% ----------------------------------------------------------------------------
-	\subsubsection*{Exercise 6.1}
-	\textbf{Show in a strategic form game that any strongly (weakly) (very weakly) dominant strategy equilibrium is also a pure strategy Nash equilibrium.}
-	
-	Let $s^* = (s_1^*, ..., s_n^*)$ be a dominant strategy equilibrium and $i\in [1,...,n]$ be an arbitrary player. $s_i^*$ is a dominant strategy for $i$, such that
-	\[ u_i(s_i^*, s_{-i}) \geq u_i(s_i,s_{-i})\ \forall s_{-i}\in S_{-i} \]
-	
-	Hence
-	\[ u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \]
-	and $s^*$ must also be a Nash equilibrium.
-	
-	% ----------------------------------------------------------------------------
-	\subsubsection*{Exercise 6.3}
+\end{abstract}
 
-	\textbf{Find the pure strategy Nash equilibria, maxmin values, minmax values, maxmin strategies, and minmax strategies of the following game.}
+{\small \tableofcontents}
+
+
+\clearpage
+
+\section{Notes}
+
+% ----------------------------------------------------------------------------
+\subsection{Introduction and key notions}
+
+Game theory is the study of how agents act under games.
+Mechanism design the concerned with the design of the games themselves.
+A rational agent chooses a strategy to maximize its utility.
+An intelligent agent is able to compute its best strategy.
+
+\begin{easylist}[itemize]
+	\ListProperties(Space=\listSpace, Space*=\listSpace)
+	# Some famous problems are
+	## Student coordination
+	## Battle of the sexes
+	## Baess paradox
+	## Prisoners dilemma
+	## Sealed bid first price auction
+	## Sealed bid second price auction (Vickrey auction)
+	## Divide the dollar
+	## Tradegy of the commons
+	## Bandwith sharing game
+	
+	## Chicken
+\end{easylist}
+
+
+\begin{easylist}[itemize]
+\ListProperties(Space=\listSpace, Space*=\listSpace)
+# A strategic form (normal form) game is given by
+\begin{equation*}
+\Gamma = 
+\langle N, (S_i)_{i \in N}, (u_i)_{i \in N}\rangle
+\end{equation*}
+where $N$ are the players, $S_i$ is the strategy set of player $i$ and $u_i$ is the utility function of player $i$.
+The utility function maps from $S_1 \times \cdots S_n \to \mathbb{R}$.
+
+# Players have a preference relation over the set of all strategy profiles $S$.
+# Intelligence: each player is a game theorist.
+# Common knowledge: every player knows it, every player knows that every player knows it, every player knows that every player knows that every player knows it, and so forth.
+\end{easylist}
+
+% ----------------------------------------------------------------------------
+\subsection{Basic games and concepts}
+
+\subsubsection*{Battle of the sexes}
+\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|c|c|c|} \hline
+		& \multicolumn{2}{|c|}{2} \\ \hline
+		1 & A & B \\ \hline
+		A & $2, 1$ & $0,0$ \\ \hline
+		B & $0,0$ & $1,2$ \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{easylist}[itemize]
+	\ListProperties(Space=\listSpace, Space*=\listSpace)
+	# There is no dominant strategy equilibrium, since $(2, 0)$ and $(0, 1)$ are incomparable---neither dominates the other.
+	# There are two PSNE: $(A, A)$ and $(B, B)$.
+	# The MSNE is
+	\begin{equation*}
+		\sigma_1^* = ( 1/3, 2/3) \qquad
+		\sigma_2^* = ( 2/3, 1/3)
+	\end{equation*}
+	and the expected utility for both players is $u_1(\sigma_1^*, \sigma_2^*) = u_2(\sigma_1^*, \sigma_2^*) = 2/3$.
+	Notice that the expected utility for the MSNE is lower than either one of the PSNE.
+\end{easylist}
+
+\subsubsection*{Prisoners dilemma}
+\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|c|c|c|} \hline
+		& \multicolumn{2}{|c|}{2} \\ \hline
+		1 & A & B \\ \hline
+		A & $-2, -2$ & $-8, -1$ \\ \hline
+		B & $-1, -8$ & $-6, -6$ \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{easylist}[itemize]
+	\ListProperties(Space=\listSpace, Space*=\listSpace)
+	# Dominant strategy equilibrium: the strategies $(B, B)$ are strongly dominant, since for player $1$: $B = (-1 ,-6) > A = (-2, -8)$.
+	The same applies to player $2$.
+	# Pure strategy Nash equilibrium: the strategies $(B, B)$ are a PSNE, since neither player will gain anything by unilaterally changing strategy.
+	# The paradox is that $(A, A)$ strongly dominates $(B, B)$ for both players, but in $(A, A)$ an unilateral change of strategy would benefit both players.
+	Therefore they both change to $B$ and both end up with less utility.
+\end{easylist}
+
+% ----------------------------------------------------------------------------
+\subsection{Solution concepts}
+
+\begin{easylist}[itemize]
+	\ListProperties(Space=\listSpace, Space*=\listSpace)
+	# Domination
+	## Strong domination : Let $s_1$ and $s_2$ be strategies available to a player. The strategy $s_1$ strongly dominates $s_2$ if it yields the player higher utility no matter what the other players choose.
+	### Example: $(4, 2, 1) > (3, 2, 0)$
+	## Weak domination : Let $s_1$ and $s_2$ be strategies available to a player. The strategy $s_1$ weakly dominates $s_2$ if it yields the player at least as good utility no matter what the other players choose, and in at least one case a better utility.
+	### Example: $(4, 2, 1) \geq (4, 1, 1)$
+	## Very weak domination : Let $s_1$ and $s_2$ be strategies available to a player. The strategy $s_1$ very weakly dominates $s_2$ if it yields the player no worse utility no matter what the other players choose.
+	### Example: $(4, 1, 1) \geqq (4, 1, 1)$
+	# A strategy profile $(s_1^*, \ldots, s_n^*)$ for all players is a (strong / weak / very weak) strategy equilibrium if strategy $s_i^*$ is a a (strong / weak / very weak) strategy for all players $i =1, \ldots, n$.
+	
+	# Pure strategy Nash equilibrium (PSNE)
+	## A strategy profile $(s_1^*, \ldots, s_n^*)$ is a PSNE if no player gains anything by unilaterally switching strategy.
+	In other words, for each player $i$ we must have
+	\begin{equation*}
+		u_i\left( s_i^*, s_{-i}^* \right)
+		\geq 
+		u_i\left( s_i, s_{-i}^* \right)
+		\quad
+		\forall s_i \in S_i.
+	\end{equation*}
+	A game may have no PSNE, one, PSNE or several PSNE.
+	## Every dominant strategy equilibrium is a PSNE
+	\begin{equation}
+		\text{Strong Eq.}
+		\subset
+		\text{Weak Eq.}
+		\subset
+		\text{Very Weak Eq.}
+		\subset
+		\text{PSNE}
+	\end{equation}
+	## Interpretations:
+	### Prescription given by an external advisor to the agents
+	### Possible prediction given rationality and intelligence of agents
+	### Self enforcing agreement where no agent has incentive to deviate
+	### Convergence point of plays
+	
+	# Maxmin and Minmax values and strategies
+	## Consider the following game, where the utilities are for player 1:
+	\begin{table}[ht!]
+		\centering
+		\begin{tabular}{|c|c|c|c|} \hline
+			& \multicolumn{3}{|c|}{2} \\ \hline
+			1 & A & B & C \\ \hline
+			A & 5 & 4 & 3  \\ \hline
+			B & 2 & 7 & 8 \\ \hline
+			C & 1 & 4 & 6 \\ \hline
+		\end{tabular}
+	\end{table}
+	## \textbf{Maxmin strategy of player 1.} If Player 1 goes first, he can choose $A$ to guarantee a utility of $3$.
+	\begin{align*}
+	\ubar{v} &= \max_{s_{i}} \min_{s_{-i}}  u_i
+	\left( s_i, s_{-i} \right)
+	\\
+	&=
+	\max_{s_{i}}
+	\left\{ 
+	\min_{s_{-i}} \left\{ 5, 9, 3 \right\},
+	\min_{s_{-i}} \left\{ 2, 7, 8 \right\},
+	\min_{s_{-i}} \left\{ 1, 4, 6 \right\}
+	\right\} \\
+	&=
+	\max_{s_{i}}
+	\left\{ 
+	3, 2, 1
+	\right\} = 3
+	\end{align*}
+	
+	## \textbf{Minmax strategy of player 1.} If player 2 goes first, Player 1 can $A$ to guarantee a utility of $5$.
+	\begin{align*}
+	\bar{v} &= \min_{s_{-i}} \max_{s_{i}}   u_i
+	\left( s_i, s_{-i} \right)
+	\\
+	&=
+	\min_{s_{-i}}
+	\left\{ 
+	\max_{s_{i}} \left\{ 5, 2, 1 \right\},
+	\max_{s_{i}}  \left\{ 9, 7, 4 \right\},
+	\max_{s_{i}}  \left\{ 3, 8, 6 \right\}
+	\right\} \\
+	&=
+	\min_{s_{-i}}
+	\left\{ 
+	5, 9, 8
+	\right\} = 5
+	\end{align*}
+	## A PSNE for is no less than than the minmax strategy, which is in turn no less than the maxmin strategy.
+	\begin{equation*}
+		u_i \left( s_i^*, s_{-i}^* \right)
+		\geq
+		\bar{v}_i
+		\geq
+		\ubar{v}_i
+	\end{equation*}
+	
+\end{easylist}
+
+
+
+
+\clearpage
+\section{Exercises}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 6.1}
+\textbf{Show in a strategic form game that any strongly (weakly) (very weakly) dominant strategy equilibrium is also a pure strategy Nash equilibrium.}
+
+Let $s^* = (s_1^*, ..., s_n^*)$ be a dominant strategy equilibrium and $i\in [1,...,n]$ be an arbitrary player. $s_i^*$ is a dominant strategy for $i$, such that
+\[ u_i(s_i^*, s_{-i}) \geq u_i(s_i,s_{-i})\ \forall s_{-i}\in S_{-i} \]
+
+Hence
+\[ u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \]
+and $s^*$ must also be a Nash equilibrium.
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 6.3}
+
+\textbf{Find the pure strategy Nash equilibria, maxmin values, minmax values, maxmin strategies, and minmax strategies of the following game.}
+
+\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|c|c|c|} \hline
+		& \multicolumn{2}{|c|}{2} \\ \hline
+		1 & A & B \\ \hline
+		A & 0,1 & 1,1 \\ \hline
+		B & 1,1 & 1,0 \\ \hline
+	\end{tabular}
+\end{table}
+
+\textit{pure strategy Nash equilibrium} $(A,B)$, $(B,A)$
+
+\textit{maxmin values} $\underline{v_1}=1$, $\underline{v_2}=1$
+
+\textit{maxmin strategies} $s_1=\{B\}$, $s_2=\{A\}$
+
+\textit{minmax values} $\overline{v_1}=1$, $\overline{v_2}=1$
+
+\textit{minmax strategies} $s_1=\{A, B\}$, $s_2=\{A,B\}$
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 6.9}
+
+\textbf{Give examples of two player pure strategy games for the following situations}
+
+\begin{enumerate}
+	\item[(a)] \textbf{The game has a unique Nash equilibrium which is not a weakly dominant strategy equilibrium}
 	
 	\begin{table}[ht!]
 		\centering
 		\begin{tabular}{|c|c|c|} \hline
 			& \multicolumn{2}{|c|}{2} \\ \hline
 			1 & A & B \\ \hline
-			A & 0,1 & 1,1 \\ \hline
-			B & 1,1 & 1,0 \\ \hline
+			A & 1,0 & 0,1 \\ \hline
+			B & 0,1 & 0,0 \\ \hline
 		\end{tabular}
 	\end{table}
 	
-	\textit{pure strategy Nash equilibrium} $(A,B)$, $(B,A)$
+	$(A,B)$ is a unique Nash equilibrium.
 	
-	\textit{maxmin values} $\underline{v_1}=1$, $\underline{v_2}=1$
+	\item[(b)] \textbf{The game has a unique Nash equilibrium which is a weakly dominant strategy equilibrium but not a strongly dominant strategy equilibrium}
 	
-	\textit{maxmin strategies} $s_1=\{B\}$, $s_2=\{A\}$
-	
-	\textit{minmax values} $\overline{v_1}=1$, $\overline{v_2}=1$
-	
-	\textit{minmax strategies} $s_1=\{A, B\}$, $s_2=\{A,B\}$
-	
-	
-	% ----------------------------------------------------------------------------
-	\subsubsection*{Exercise 6.9}
-	
-	\textbf{Give examples of two player pure strategy games for the following situations}
-	
-	\begin{enumerate}
-		\item[(a)] \textbf{The game has a unique Nash equilibrium which is not a weakly dominant strategy equilibrium}
-		
-		\begin{table}[ht!]
-			\centering
-			\begin{tabular}{|c|c|c|} \hline
-				& \multicolumn{2}{|c|}{2} \\ \hline
-				1 & A & B \\ \hline
-				A & 1,0 & 0,1 \\ \hline
-				B & 0,1 & 0,0 \\ \hline
-			\end{tabular}
-		\end{table}
-		
-		$(A,B)$ is a unique Nash equilibrium.
-		
-		\item[(b)] \textbf{The game has a unique Nash equilibrium which is a weakly dominant strategy equilibrium but not a strongly dominant strategy equilibrium}
-		
-		\begin{table}[ht!]
-			\centering
-			\begin{tabular}{|c|c|c|} \hline
-				& \multicolumn{2}{|c|}{2} \\ \hline
-				1 & A & B \\ \hline
-				A & 1,1 & 0,0 \\ \hline
-				B & 0,1 & 0,0 \\ \hline
-			\end{tabular}
-		\end{table}
-		
-		$(A,A)$ is a unique Nash equilibrium and a weakly dominant strategy equilibrium.
-		
-		\item[(c)] \textbf{The game has one strongly dominant or one weakly dominant strategy equilibrium and a second one which is only a Nash equilibrium}
-		
-		\begin{table}[ht!]
-			\centering
-			\begin{tabular}{|c|c|c|} \hline
-				& \multicolumn{2}{|c|}{2} \\ \hline
-				1 & A & B \\ \hline
-				A & 1,1 & 0,1 \\ \hline
-				B & 0,1 & 0,0 \\ \hline
-			\end{tabular}
-		\end{table}
-		
-		$(A,A)$ is a weakly dominant strategy equilibrium and $(A,B)$ is only a Nash equilibrium.
-		
-	\end{enumerate}
-	
-	% ----------------------------------------------------------------------------
-	\subsubsection*{Exercise 6.10}
-	
-	\textbf{Assume two bidders with valuations $v_1$ and $v_2$ for an object. Their bids are in multiples of some unit (that is, discrete). The bidder with higher bid wins the auction and pays the amount that he has bid. If both bid the same amount, one of them gets the object with equal probability $\frac{1}{2}$. In this game, compute a pure strategy Nash equilibrium of the game.}
-	
-	There are three possible strategies; a bidder $i$ may bid over his own valuation $b_i > v_i$, equal to his valuation $b_i = v_i$ or under his valuation $b_i < v_i$.
-	
-	Depending on the bid of the other bidders $j$, the utility for $i$ is given as follows
-	\[
-	u_i =
-	\begin{cases}
-	v_i - b_i & \text{ if } b_i > b_j \\
-	\frac{1}{2}(v_i - b_i) & \text{ if } b_i = b_j \\
-	0 & \text{ if } b_i < b_j \\
-	\end{cases}
-	\]
-	
-	There are nine possible outcomes for $i$:
 	\begin{table}[ht!]
 		\centering
-		\begin{tabular}{|c|c|c|c|} \hline
-			& $b_i > b_j$ & $b_i = b_j$ & $b_i < b_j$ \\ \hline
-			$b_i > v_i$ & $<0$ & $<0$ & $0$ \\ \hline
-			$b_i = v_i$ & $0$ & $0$ & $0$ \\ \hline
-			$b_i < v_i$ & $>0$ & $>0$ & $0$ \\ \hline
+		\begin{tabular}{|c|c|c|} \hline
+			& \multicolumn{2}{|c|}{2} \\ \hline
+			1 & A & B \\ \hline
+			A & 1,1 & 0,0 \\ \hline
+			B & 0,1 & 0,0 \\ \hline
 		\end{tabular}
 	\end{table}
 	
-	Given that $i$ is an arbitrary bidder, the payoff matrix is the same for all bidders, hence $b_i < v_i$ must be a pure strategy Nash equilibrium.
+	$(A,A)$ is a unique Nash equilibrium and a weakly dominant strategy equilibrium.
 	
+	\item[(c)] \textbf{The game has one strongly dominant or one weakly dominant strategy equilibrium and a second one which is only a Nash equilibrium}
+	
+	\begin{table}[ht!]
+		\centering
+		\begin{tabular}{|c|c|c|} \hline
+			& \multicolumn{2}{|c|}{2} \\ \hline
+			1 & A & B \\ \hline
+			A & 1,1 & 0,1 \\ \hline
+			B & 0,1 & 0,0 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	$(A,A)$ is a weakly dominant strategy equilibrium and $(A,B)$ is only a Nash equilibrium.
+	
+\end{enumerate}
 
-	
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 6.10}
 
-	
-	
+\textbf{Assume two bidders with valuations $v_1$ and $v_2$ for an object. Their bids are in multiples of some unit (that is, discrete). The bidder with higher bid wins the auction and pays the amount that he has bid. If both bid the same amount, one of them gets the object with equal probability $\frac{1}{2}$. In this game, compute a pure strategy Nash equilibrium of the game.}
 
-	
-	
-	
-	\bibliographystyle{apalike}%alpha, apalike is also good
-	\bibliography{bibliography}
+There are three possible strategies; a bidder $i$ may bid over his own valuation $b_i > v_i$, equal to his valuation $b_i = v_i$ or under his valuation $b_i < v_i$.
+
+Depending on the bid of the other bidders $j$, the utility for $i$ is given as follows
+\[
+u_i =
+\begin{cases}
+v_i - b_i & \text{ if } b_i > b_j \\
+\frac{1}{2}(v_i - b_i) & \text{ if } b_i = b_j \\
+0 & \text{ if } b_i < b_j \\
+\end{cases}
+\]
+
+There are nine possible outcomes for $i$:
+\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|c|c|c|c|} \hline
+		& $b_i > b_j$ & $b_i = b_j$ & $b_i < b_j$ \\ \hline
+		$b_i > v_i$ & $<0$ & $<0$ & $0$ \\ \hline
+		$b_i = v_i$ & $0$ & $0$ & $0$ \\ \hline
+		$b_i < v_i$ & $>0$ & $>0$ & $0$ \\ \hline
+	\end{tabular}
+\end{table}
+
+Given that $i$ is an arbitrary bidder, the payoff matrix is the same for all bidders, hence $b_i < v_i$ must be a pure strategy Nash equilibrium.
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{apalike}%alpha, apalike is also good
+\bibliography{bibliography}
 \end{document}
