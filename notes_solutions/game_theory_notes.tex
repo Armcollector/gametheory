@@ -401,11 +401,252 @@ There are nine possible outcomes for $i$:
 Given that $i$ is an arbitrary bidder, the payoff matrix is the same for all bidders, hence $b_i < v_i$ must be a pure strategy Nash equilibrium.
 
 
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 7.1}
+
+\textbf{Let $S$ be any finite set with $n$ elements. Show that the set $\Delta(S)$, the set of all probability distributions over $S$, is a convex set.}
 
 
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 7.5}
+% TODO: Equations are wrong (results are correct)
+
+\textbf{Find the mixed strategy Nash equilibria for the rock-paper-scissors game:}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}                   \hline
+                 & \multicolumn{3}{|c|}{2}    \\ \hline
+        1        & Rock   & Paper  & Scissors \\ \hline
+        Rock     & $0,0$  & $-1,1$ & $1,-1$   \\ \hline
+        Paper    & $1,-1$ & $0,0$  & $-1,1$   \\ \hline
+        Scissors & $-1,1$ & $1,-1$ & $0,0$    \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Also compute the maxmin value and minmax value in mixed strategies. Determine the maxmin mixed strategies of each player and the minmax mixed strategies against each player.}
+
+Player 1 plays Rock with probability $x$, Paper with probability $y$ and Scissors with probability $1-x-y$.
+
+Player 1 is indifferent between Rock and Paper if 
+\[ -y + (1-x-y) = x - (1-x-y) \Leftrightarrow y = \frac{2}{3} - x \]
+and indifferent between Paper and Scissors if
+\[ x - (1-x-y) = -x + y \Leftrightarrow  x = \frac{1}{3}\]
+
+Player 2 plays Rock with probability $p$, Paper with probability $q$ and Scissors with probability $1-p-q$.
+
+Player 2 is indifferent between Rock and Paper if
+\[ -q + (1-p-q) = p - (1-p-q) \Leftrightarrow q = \frac{2}{3} - p \]
+and indifferent between Paper and Scissors if
+\[ p - (1-p-q) = -p + q \Leftrightarrow p = \frac{1}{3} \]
+
+This results in the following mixed strategy Nash equilibrium:
+\[ \sigma_1^* = \left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)\quad
+\sigma_2^* = \left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right) \]
 
 
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 7.8}
+% TODO: Equations are wrong (results are reversed)
 
+\textbf{Find the mixed strategy Nash equilibria for the following game.}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+          & A     & B     \\ \hline
+        A & $6,2$ & $0,0$ \\ \hline
+        B & $0,0$ & $2,6$ \\ \hline
+    \end{tabular}
+\end{table}
+
+\[ 6x = 2(1-x) \Leftrightarrow x = \frac{1}{4} \]
+\[ 2p = 6(1-p) \Leftrightarrow p = \frac{3}{4} \]
+
+Mixed strategy Nash equilibrium is given by $\sigma_1^* = \left(\frac{1}{4}, \frac{3}{4}\right)$ and $\sigma_2^* = \left(\frac{3}{4}, \frac{1}{4}\right)$.
+
+\textbf{If all these numbers are multiplied by 2, will the equilibria change?}
+
+Multiplying all numbers by 2, results in the exact same equilibrium:
+
+\[ 12x = 4(1-x) \Leftrightarrow x = \frac{1}{4} \]
+\[ 4p = 12(1-p) \Leftrightarrow p = \frac{3}{4} \]
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 7.10}
+
+\textbf{This game is called the \emph{guess the average} game. There are $n$ players. Each player announces a number in the set $\{1, ..., K\}$. A monetary reward of \$1 is split equally between all the players whose number is closest to $\frac{2}{3}$ of the average number. Formulate this as a strategic form game. Show that the game has a unique mixed strategy Nash equilibrium, in which each player plays a pure strategy.}
+
+Each player has $K$ strategies, where the strategy $s_i$ for $i=1, ..., K$ represents announcing the number $i$. The mixed strategy Nash equilibrium is found by iterated elimination of weakly dominated strategies. The first iteration eliminates all strategies $s_j$ for $j = \frac{2}{3}K, ..., K$, because none of these strategies can possible be $\frac{2}{3}$ of the average number. This continues until all but one strategy have been eliminated, namely $s_1$.
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 8.4}
+
+\textbf{Prove Theorem 8.2 which provides a convenient characterization for risk neutral,
+risk averse, and risk loving players.}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 8.2}
+
+\textbf{Complete the proof of the result that affine transformations of a utility function do not affect properties (1) and (2) of the von Neumann – Morgenstern utilities (see Theorem 8.1).}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 8.1}
+
+\textbf{Complete the proof of Lemma 8.1.}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 9.3}
+
+\textbf{An $m \times m$ matrix is called a latin square if each row and each column is a permutation of $(1, . . . , m)$. Compute pure strategy Nash equilibria, if they exist, of a matrix game for which a latin square is the payoff matrix.}
+
+Example of a latin square for $m=3$:
+
+\begin{equation*}
+    A = 
+    \begin{bmatrix}
+        1 & 3 & 2 \\
+        2 & 1 & 3 \\
+        3 & 2 & 1 \\
+    \end{bmatrix}
+\end{equation*}
+
+Here, we have:
+
+\[ \underline{v} = \max_i \min_j a_{ij} = \max\{1, 1, 1\} = 1 \]
+\[ \overline{v} = \min_j \max_i a_{ij} = \min\{3, 3, 3\} = 3 \]
+
+Since $\underline{v} \neq \overline{v}$, the matrix game has no pure strategy Nash equilibrium.
+
+Note that $\underline{v}$ is always $1$, since all rows always contain $1$, and that $\overline{v}$ is always $m$ since all rows contain $m$. Hence, the latin square has a pure strategy Nash equilibrium if and only if $m=1$.
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 9.7}
+
+\textbf{Give an example of a matrix game for each of the following cases:}
+
+\begin{itemize}
+    \item \textbf{There exist only pure strategy Nash equilibria}
+    
+    \[A_1 = \begin{bmatrix}
+        2 & 3 \\
+        1 & 2 \\
+    \end{bmatrix}\]
+
+    $(A, A)$ is the only pure strategy Nash equilibrium.
+
+    \item \textbf{There exists exactly one Nash equilibrium}
+    
+    \[A_2 = \begin{bmatrix}
+        1 & -1 \\
+        -1 & 1 \\
+    \end{bmatrix}\]
+
+    Exactly one Nash equilibrium at $(\frac{1}{2}A, \frac{1}{2}B)$.
+    
+    \item \textbf{There exist exactly two Nash equilibria}
+    
+    \[A_3 = \begin{bmatrix}
+        1 & 0 \\
+        1 & 1 \\
+    \end{bmatrix}\]
+
+    Two Nash equilibria at $(B, A)$ and $(B, B)$.
+    
+    \item \textbf{There exist infinite number of Nash equilibria}
+    
+    \[A_4 = \begin{bmatrix}
+        1 & 1 \\
+        1 & 1 \\
+    \end{bmatrix}\]
+    
+    There are infinitely many mixed Nash equilibria in this game.
+    
+    \item \textbf{There exists a strongly dominant strategy equilibrium}
+    
+    \[A_5 = \begin{bmatrix}
+        2 & 3 \\
+        1 & 2 \\
+    \end{bmatrix}\]
+
+    $(A, A)$ is a strongly dominant strategy equilibrium.
+
+\end{itemize}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 9.9}
+
+\textbf{For the following matrix game}
+
+    \[A = \begin{bmatrix}
+        2 & 3 & 1 \\
+        4 & 1 & 2 \\
+        4 & 1 & 3
+    \end{bmatrix}\]
+
+\begin{itemize}
+    \item \textbf{Compute maxmin and minmax values over pure strategies}
+    
+    \[ \underline{v} = \max_i \min_j a_{ij} = \max\{1, 1, 1\} = 1 \]
+    \[ \overline{v} = \min_j \max_i a_{ij} = \min\{4, 3, 3\} = 3 \]
+
+
+    \item \textbf{Compute all pure strategy Nash equilibria}
+    
+    No pure strategy nash equilibria
+
+    \item \textbf{Compute maxmin and minmax values over mixed strategies}
+    
+    Linear programs computed at https://online-optimizer.appspot.com/.
+
+    \begin{verbatim}
+var x1 >= 0;
+var x2 >= 0;
+var x3 >= 0;
+var z;
+
+maximize obj: z;
+
+subject to c0: x1 + x2 + x3 = 1;
+subject to c1: z <= 2*x1 + 4*x2 + 4*x3;
+subject to c2: z <= 3*x1 + x2 + x3;
+subject to c3: z <= x1 + 2*x2 + 3*x3;
+
+end;
+    \end{verbatim}
+
+    Optimal solution $z=2$ for mixed strategy $\left(\frac{1}{2}, 0, \frac{1}{2}\right)$.
+
+    \begin{verbatim}
+var y1 >= 0;
+var y2 >= 0;
+var y3 >= 0;
+var w;
+
+minimize obj: w;
+
+subject to c0: y1 + y2 + y3 = 1;
+subject to c1: w >= 2*y1 + 3*y2 + y3;
+subject to c2: w >= 4*y1 + y2 + 2*y3;
+subject to c3: w >= 4*y1 + y2 + 3*y3;
+
+end;
+    \end{verbatim}
+
+    Optimal solution $w=2$ for mixed strategy $\left(0, \frac{1}{2}, \frac{1}{2}\right)$.
+
+    \item \textbf{Compute all mixed strategy Nash equilibria}
+    
+    A mixed strategy Nash equilibrium is $\left(\left(\frac{1}{2}, 0, \frac{1}{2}\right), \left(0, \frac{1}{2}, \frac{1}{2} \right) \right)$
+
+\end{itemize}
 
 
 
