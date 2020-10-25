@@ -649,6 +649,243 @@ end;
 \end{itemize}
 
 
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 13.1}
+
+\textbf{Write down the definitions of weakly dominant strategy equilibrium and strongly dominant strategy equilibrium for Bayesian games.}
+
+Given a Bayesian game
+\[ \Gamma = \langle N,(\theta_i),(S_i),(p_i),(u_i)\rangle \]
+a profile of strategies $(s_i^*, ..., s_n^*)$ is called a strongly dominant strategy equilibrium if $\forall i\in N; \forall s_i : \Theta_i \rightarrow S_i; \forall s_{-i} : \Theta_{-i} \rightarrow S_{-i}; \forall \theta_i \in \Theta_i$
+\[u_i((s_i^*, s_{-i})|\theta_i) > u_i((s_i, s_{-i})|\theta_i)\]
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 13.4}
+
+\textbf{Consider two agents 1 and 2 where agent 1 is the seller of an indivisible item and agent 2 is a prospective buyer of the item. The type $\theta_1$ of agent 1 (seller) can be interpreted as the willingness to sell of the agent (minimum price at which agent 1 is willing to sell). The type $\theta_2$ of agent 2 (buyer) has the natural interpretation of willingness to pay (maximum price the buyer is willing to pay). Assume that $\theta_1 = \theta_2 = [0, 1]$ and that each agent thinks that the type of the other agent is uniformly distributed over the real interval $[0, 1]$. Define the following protocol. The seller and the buyer are asked to submit their bids $b_1$ and $b_2$ respectively. Trade happens if $b_1 \leq b_2$ and trade does not happen otherwise. If trade happens, the buyer gets the item and pays the seller an amount $\frac{(b_1+b_2)}{2}$. Compute a Bayesian Nash equilibrium of the Bayesian game here.}
+
+Assume the bid of the buyer (agent 2) takes the form $b_2(\theta_2) = \alpha\theta_2$, where $\alpha \in (0,1]$. The seller wishes to maximize his expected payoff $\max(b_1 - \theta_1)P\{b_1 \leq b_2(\theta_2)\}$. Since the bid of agent 2 is $b_2(\theta_2)=\alpha\theta_2$ and $\theta_2 \in [0,1]$, the maximum bid of agent 2 is $\alpha$. The seller (agent 1) knows this and therefore $b_1 \in [0, \alpha]$. Futhermore,
+
+\begin{align*}
+	P\{b_1 \leq b_2(\theta_2)\} &= P\{b_1 \leq \alpha\theta_2\} \\
+	&= P\{\frac{b_1}{\alpha} \leq \theta_2\} \\
+	&= 1 - \frac{b_1}{\alpha}
+\end{align*}
+
+Hence the seller (agent 1) wants to solve 
+\[\max_{b_1\in[0,\alpha]}(b_1 - \theta_1)\left(1 - \frac{b_1}{\alpha}\right)\]
+such that
+\[ b_1(\theta_1) = \frac{\theta_1 + \alpha}{2}\]
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 14.1}
+
+\textbf{In the cake cutting problem, if there were three children rather than two, what would be some appropriate mechanisms for fair sharing of the cake?}
+
+\begin{enumerate}
+	\item The first child cuts a slice of the cake.
+	\item The second child has two options:
+	\begin{enumerate}
+		\item Choose the slice cut by the first child.
+		\item Slice the remaining cake.
+	\end{enumerate}
+	\item Depending on the action of the previous child, the next child can either:
+	\begin{enumerate}
+		\item Choose between any of the cut slices.
+		\item Slice the remaining cake.
+	\end{enumerate}
+	\item Perform at most $n-1$ cuts and continue untill all slices have been distributed.
+\end{enumerate}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 14.3}
+
+\textbf{Write down the type sets, outcomes, and social choice function in the baby’s mother problem.}
+
+\begin{itemize}
+	\item \textbf{Type sets}
+	Each agent is either the baby's mother or not.
+	\item \textbf{Outcomes}
+	Each agent can either plead with the king or not.
+	\item \textbf{Social choice function}
+	An agent will plead if and only if the agent is the baby's mother.
+\end{itemize}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 14.4}
+
+\textbf{Write down the social choice functions SCF1 and SCF2 assuming one selling agent and $n$ buying agents.}
+
+Rewriting SCF1 assuming $n$ buying agents, we have for $i = (1,...,n)$:
+
+\begin{align*}
+	y_0(\theta) &= 0 \\
+	y_i(\theta) &=
+		\begin{cases}
+			1 & \text{ if } \theta_i = \max(\theta)	\\
+			0 & \text{ otherwise}
+		\end{cases} \\
+	t_i(\theta) &= -y_i(\theta) \theta_i \\
+	t_0(\theta) &= -\sum_i t_i(\theta)
+\end{align*}
+
+and for SCF2, the only difference is $t_i$ which in this case is:
+
+\begin{equation*}
+	t_i = -y_i(\theta) \theta_k \text{ for } k=\text{argmax}(\theta_{-i})
+\end{equation*}
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 15.4}
+
+\textbf{Show that the social choice function BUY1 cannot be implemented by a direct mechanism.}
+
+The social choice function BUY1 is SCF1 modified to represent the buying scenario.
+
+It is defined as
+\begin{align*}
+	y_0(\theta) &= 0 \\
+	y_1(\theta) &= 1 \text{ if } \theta_1 \leq \theta_2 \\
+				&= 0 \text{ if } \theta_1 > \theta_2 \\
+	y_2(\theta) &= 1 \text{ if } \theta_1 > \theta_2 \\
+				&= 0 \text{ if } \theta_1 \leq \theta_2 \\
+	t_1(\theta) &= y_1(\theta)\theta_1 \\
+	t_2(\theta) &= y_2(\theta)\theta_2 \\
+	t_0(\theta) &= -(t_1(\theta) + t_2(\theta)) \\
+\end{align*}
+such that the buyer buys the object from the seller with the lowest willingness to sell.
+
+To show that BUY1 cannot be implemented by a direct mechansim, assume that seller 2 announces his true value $\theta_2$. Seller 1 wishes to maximize his expected payoff, having valuation $\theta_1$ and by announcing $\hat{\theta}_1$. If $\hat{\theta}_1 \leq \theta_2$, then seller 1 wins and his utility will be $\hat{\theta}_1 - \theta_1$. If $\hat{\theta}_1 > \theta_2$, then seller 2 wins and seller 1's utility is zero. Hence, seller 1 wishes to solve the problem
+\[ \max_{\hat{\theta}_1}(\hat{\theta}_1 - \theta_1)P\{\hat{\theta}_1 \leq \theta_2\} \]
+where
+\[ P\{\hat{\theta}_1 \leq \theta_2\} = 1-\hat{\theta}_1 \]
+
+The problem then becomes
+\[ \max_{\hat{\theta}_1}(\hat{\theta}_1 - \theta_1)(1-\hat{\theta}_1) \]
+hence
+\[ \hat{\theta}_1 = \frac{\theta_2}{2} + \frac{1}{2} \]
+which shows that seller 1 is incentivized to lie about his true type.
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 15.8}
+
+\textbf{In some of the examples discussed in this chapter, it is assumed that a tie between agent 1 and agent 2 will be resolved in favor of agent 1. Investigate what would happen in these examples if the tie is resolved in favor of agent 1 or agent 2 using a Bernoulli random variable.}
+
+First of all, social functions must take the tie into account. Secondly, the utility maximization problems become dependant on the Bernoulli random variable. This could also affect the implementability of SCFs.
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 15.9}
+
+\textbf{See page 235-236 in the textbook.}
+
+The utility for the seller is defined as
+\[ u_1 = \frac{b_1 + b_2}{2} - b_1 \]
+and for the buyer as
+\[ u_2 = b_2 - \frac{b_1 + b_2}{2} \]
+
+
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 16.1}
+
+\textbf{Consider the cake-cutting problem with 3 children instead of 2. For this problem, suggest (i) a mechanism which will implement the SCF in dominant strategies and (ii) a mechanism which will implement the SCF in Bayesian Nash equilibrium but not in dominant strategies. Prove your results with simple, brief, logical arguments.}
+
+\begin{enumerate}
+	\item[i)] The solution to exercise 14.1 above implements the SCF in dominant strategies, as each child is responisble for cutting his own slice of cake. This is because the last to cut the cake is also the last to pick a slice of cake, such that if a child cuts a smaller slice, he is left with that slice himself.
+	\item[ii)] A mechanism where each child cuts a slice of cake for the next child implements the SCF in Bayesian Nash equilibrium.
+\end{enumerate}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 16.2}
+
+\textbf{Show that the social choice functions SCF1 and SCF2 we defined in Chapter 15 are ex-post efficient. How about SCF3?}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 16.10}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 18.1}
+
+\textbf{Consider five selling agents $\{1, 2, 3, 4, 5\}$, with valuations $v_1 = 20; v_2 = 15; v_3 = 12; v_4 = 10; v_5 = 6$, participating in a sealed bid procurement auction for a single indivisible item. These valuations are to be viewed as the willingness to sell values of the bidders.}
+\begin{enumerate}
+	\item[a)] \textbf{If Vickrey auction is the mechanism used, then compute the allocation and payment.}
+	 
+	The dominant strategy for the agents is to bid their valuations.
+	Agent 5 is the winner with a marginal contribution of $6 - 10 = -4$, hence the agent receives $6 - (-4)= 10$.
+
+	\item[b)] \textbf{If the buyer wishes to procure three objects instead of one object, and each bidder can supply at most one object, then compute the allocation and payments.}
+	
+	Agent 5, 4 and 3 are the winners with marginal contributions
+	\[ (6 + 10 + 12) - (10 + 12 + 15) = -9 \]
+	\[ (6 + 10 + 12) - ( 6 + 12 + 15) = -5 \]
+	\[ (6 + 10 + 12) - ( 6 + 10 + 15) = -3 \]
+	Hence, agent 5, 4 and 3 receive $6 - (-9) = 15$, $10 - (-5) = 15$ and $12 - (-3) = 15$.
+
+	\item[c)] \textbf{Finally, if the buyer wishes to buy 6 objects and each bidder is willing to supply up to two objects, compute the allocation and payments.}
+	
+	Agent 5, 4 and 3 are the winners with marginal contributions
+	\[ (6 + 6 + 10 + 10 + 12 + 12) - (10 + 10 + 12 + 12 + 15 + 15) = -18 \]
+	\[ (6 + 6 + 10 + 10 + 12 + 12) - ( 6 +  6 + 12 + 12 + 15 + 15) = -10 \]
+	\[ (6 + 6 + 10 + 10 + 12 + 12) - ( 6 +  6 + 10 + 10 + 15 + 15) = -6 \]
+	Hence, agent 5, 4 and 3 receive $6 + 6 - (-18) = 30$, $10 + 10 - (-10) = 30$ and $12 + 12 - (-6) = 30$.
+
+\end{enumerate}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 18.2}
+
+\textbf{Consider an exchange where a single unit of an item is traded. There are 4 sellers S1, S2, S3, S4 and 3 buyers B1, B2, and B3. Here are the bids from the buyers and the asks from the sellers for the single item. The objective is to maximize the surplus in the exchange.}
+\begin{verbatim}
+S1: 10 S2: 12 S3: 14 S4: 16
+B1: 8  B2: 12 B3: 18
+\end{verbatim}
+\begin{enumerate}
+	\item[a)] \textbf{Define the surplus of the exchange as the total amount of money paid by the buyers minus the total amount of money received by the sellers. Call an allocation surplus maximizing if it maximizes the surplus of the exchange. Find a surplus maximizing allocation for this exchange.}
+
+	Let $y_S=(s_1,s_2,s_3,s_4)$ be the sellers' allocation vector where $s_1 = 1$ if seller S1 sells his item and 0 otherwise. Similarly, let $y_B=(b_1, b_2, b_3)$ be the buyers' allocation vector where $b_1 = 1$ if buyer B1 buys an item. $K$ is the set of $(y_S, y_B)$ pairs which satisfy $\sum y_S = \sum y_B$.
+
+	The surplus is defined as $y_B\cdot(B1, B2, B3) - y_S\cdot (S1, S2, S3, S4)$.
+
+	A surplus maximizing allocation is $((1, 0, 0, 0), (0, 0, 1))$ with a surplus of $18 - 10 = 8$.
+
+	\item[b)] \textbf{Assuming that Vickrey pricing is used, what will be the payment?}
+	
+	Buyer 3 has a marginal contribution of $18 - 12 = 6$, such that his payment will be $18 - 6 = 12$.
+
+	\item[c)] \textbf{Will the mechanism satisfy budget balance?}
+	
+	The mechanism satisfies budget balance since the system is closed and all payments made by any buyer are received by a seller.
+
+\end{enumerate}
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 18.3}
+
+\textbf{Consider a forward auction for sale of $m$ identical objects. Let there be $n$ bidders where $n > m$. The valuations of the bidders for the object are $v_1, ..., v_n$, respectively. Each bidder is interested in at most one unit.}
+
+\begin{enumerate}
+	\item[a)] \textbf{For this auction scenario, write down an allocation rule that is allocatively efficient.}
+	Let $y=(y_1,...,y_n)$ be the allocation vector where $y_1 = 1$ is bidder 1 wins an item, and 0 otherwise. $K$ is the set of $y$ where $\sum y = m$.
+
+	An allocation rule that is allocatively efficient is to select the $m$ bidders with largest valuations.
+
+	\item[b)] \textbf{What will	be the Clarke payment in this case?}
+	
+	The Clarke payment is given by
+	\[ h_i = -\sum_{j\neq i} v_j\cdot y_j\]
+	
+	\item[c)] \textbf{Do you see any difficulty? How can you overcome the difficulty, if any?}
+
+
+\end{enumerate}
+
+% ----------------------------------------------------------------------------
+\subsubsection*{Exercise 18.4}
+
+\textbf{Consider an auction for selling a single indivisible item where the bidder with the highest bid is declared as the winner and the winner pays an amount equal to twice the bid of the bidder with the lowest valuation among the rest of the agents. Is this mechanism a Clarke mechanism? Is the mechanism a Groves mechanism? Is the mechanism incentive compatible?}
+
 
 \bibliographystyle{apalike}%alpha, apalike is also good
 \bibliography{bibliography}
